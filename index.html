@@ -74,6 +74,9 @@
             list-style-position: inside;
             padding-left: 0.5rem;
         }
+        .translation-box p, .translation-box ul {
+            white-space: pre-wrap;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -135,12 +138,12 @@
             
             <h3 class="text-3xl font-bold text-[#2C3E50] text-center mb-6">1. The Starting Point: From the Interface to the Assistant</h3>
             <p class="text-center text-lg text-slate-700 max-w-3xl mx-auto mb-10">
-                The process begins when you identify a bet to verify in the system. Our tool extracts the essential data and formats the query for the AI.
+                The process is initiated from raw data from the internal system, to protect sensible data, any sensitive data is needed for the research, only public informations, which is then transformed into a structured query for our AI tool.
             </p>
             
             <div class="workflow-card border-[#3498DB] max-w-3xl mx-auto mb-8">
                 <h4 class="text-xl font-semibold text-[#3498DB] mb-3 text-center">a. Data Origin: The YODA Interface</h4>
-                <p class="text-slate-600 mb-4 text-center">The raw bet data is captured directly from the internal system's screen.</p>
+                <p class="text-slate-600 mb-4 text-center">The process begins when an agent identifies a bet for verification in the system. Then the agent extract the non sensitive data directly from this known interface:</p>
                 <div class="output-example-container">
                     <img src="https://raw.githubusercontent.com/riohdigital/rio-digital-hub-connect/4e9d1a6114181e68b9f78f7cbbe791068372f3f7/public/Apresenta%C3%A7%C3%A3o%20agente%20de%20resultados%20-%20Hospedagem%20das%20Imagens/Sessa%CC%83o%20de%20Informac%CC%A7o%CC%83es%20da%20Aposta%20YODA.png" alt="Screenshot of the YODA interface showing bet data for Santos vs Botafogo.">
                 </div>
@@ -165,14 +168,37 @@
                 <h4 class="text-2xl font-semibold text-[#3498DB] mb-3">Block 1: Bet Data and Initial Verification</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                     <div>
-                        <img src="https://raw.githubusercontent.com/riohdigital/rio-digital-hub-connect/acb6036fc496abe53d2178e3670ec8b692c8712d/public/Apresenta%C3%A7%C3%A3o%20agente%20de%20resultados%20-%20Hospedagem%20das%20Imagens/Bloco%201.1%20Relato%CC%81rio%20do%20Assistente%20-%20Dados%20da%20Busca%20-%20Santos%20v%20Botafogo%20-%20Sem%20Escalac%CC%A7a%CC%83o%20-%20Sportsbook%20-%20PT-BR.png" alt="Block 1.1 of the Report">
+                        <img src="https://raw.githubusercontent.com/riohdigital/rio-digital-hub-connect/e818c59916ae0ec959f66c743e81eb5458618bdf/public/Apresenta%C3%A7%C3%A3o%20agente%20de%20resultados%20-%20Hospedagem%20das%20Imagens/Bloco%201.1%20Relato%CC%81rio%20do%20Assistente%20-%20Dados%20da%20Busca%20-%20Santos%20v%20Botafogo%20-%20Sem%20Escalac%CC%A7a%CC%83o%20-%20Sportsbook%20-%20PT-BR.png?raw=true" alt="Block 1.1 of the Report">
                         <img src="https://raw.githubusercontent.com/riohdigital/rio-digital-hub-connect/acb6036fc496abe53d2178e3670ec8b692c8712d/public/Apresenta%C3%A7%C3%A3o%20agente%20de%20resultados%20-%20Hospedagem%20das%20Imagens/Bloco%201.2%20Relato%CC%81rio%20do%20Assistente%20-%20Dados%20da%20Busca%20-%20Santos%20v%20Botafogo%20-%20Sem%20Escalac%CC%A7a%CC%83o%20-%20Sportsbook%20-%20PT-BR.png" alt="Block 1.2 of the Report" class="mt-4">
                     </div>
                     <div>
                         <div class="translation-box">
-                            <h5>Key Information</h5>
-                            <p><strong>Bet Details:</strong> Teams, Date, Market, Selection, Sport, Competition, Bet Type, Original Result.</p>
-                            <p class="mt-2"><strong>Process Details:</strong> Query ID, Timestamp, Agent, Sources Consulted, Official Data Used (JSON format).</p>
+                            <h5>Internal Verification Report:</h5>
+                            <p>
+ID of Query: 4351449d-40a6-4d02-aa49-d411e4db6cfb
+Date/Time of Verification: 2025-06-01T20:16:16.374-03:00
+User/Agent: Customer Service
+
+<strong>Bet Details Provided:</strong>
+
+Teams: Santos vs Botafogo FR
+Date: 2025-06-01
+Market: Cards Over/Under 6.5
+Selection: Over 6.5 Cards
+Sport: football
+Competition (Identified by API): Brasileirão
+Bet Type (Back/Lay): BACK
+Original Result Reported: Lost
+
+<strong>Verification Process (Internal Summary):</strong>
+
+User Confirmation Received: Yes
+Source(s) Consulted: Os Sport Perform, Web Search
+Result of Tool(s) Used:
+Os Sport Perform: Status=success, Match Found=true, Sufficient Data=Yes, Sufficient Data (Including Player Stats if necessary)=NA
+Sofa Sport (if called as explicit fallback by the model): Status=N/A, Match Found=N/A, Sufficient Data=N/A, Sufficient Data (Including Player Stats if necessary)=N/A
+Second Player Statistics (if called): Status=N/A, Player Found=N/A, Error=N/A, Data Obtained=N/A
+                            </p>
                         </div>
                         <p class="mt-4 text-slate-600"><strong>What it's for:</strong> Records the bet data, consulted sources, and official match data (score, cards, etc.) obtained from the main API.</p>
                     </div>
@@ -187,11 +213,35 @@
                     </div>
                     <div>
                         <div class="translation-box">
-                            <h5>Analysis & Rule Application</h5>
-                            <ul>
-                                <li><strong>Comparison Logic:</strong> Details the card count reasoning (e.g., "The red card for Neymar resulted from a second yellow... Card Count: 4 distinct yellow cards + 1 player with (1 yellow + 1 red = 2 cards) = 6 cards").</li>
-                                <li class="mt-2"><strong>Special Rule Checks:</strong> Verifies the applicability of rules like "2 UP", "Safe Substitution", and other market-specific logic.</li>
-                            </ul>
+                            <h5>Results:</h5>
+                            <p>
+<strong>Applied Comparison Logic:</strong>
+
+There were 5 yellow card incidents and 1 red card incident.
+The red card for Neymar was the result of a second yellow.
+Card count: 4 separate yellow cards + 1 player with (2 yellows + 1 red = 2 cards) = 4 + 2 = 6 cards.
+
+<strong>Player Stats:</strong>
+
+Used: No
+API Key(s): N/A
+Inference Applied: No
+Missing Data: No
+Second Player/Substitute Verified: No
+
+<strong>Special Rules:</strong>
+Rule 2 UP Identified: No
+Safe Substitution: Applicable/Verified - No
+
+Applicable League: N/A
+SubSafe Participating League: N/A
+Is Boost Market: No (Not applicable to market)
+Original Player Replaced: N/A
+Substitute Data Obtained: N/A
+
+Market "More X in Each Half": Not Applicable
+Other Special Rule Applied: Card Counting Rule (2 yellows to red = 2 cards)
+                            </p>
                         </div>
                         <p class="mt-4 text-slate-600"><strong>What it's for:</strong> Details the tool's reasoning, including statistics counting and verification of special rules (2UP, Safe Sub, etc.).</p>
                     </div>
@@ -206,12 +256,31 @@
                     </div>
                     <div>
                         <div class="translation-box">
-                            <h5>Final Verdict & Agent Notes</h5>
-                            <ul>
-                                <li><strong>Final Verification Result (FVR):</strong> Correct (Lost)</li>
-                                <li class="mt-2"><strong>Reasoning:</strong> Explains why the bet was correctly settled as 'Lost', detailing the card count against the bet line ('Over 6.5 Cards').</li>
-                                <li class="mt-2"><strong>Agent Notes:</strong> Confirms that the original settlement is consistent with the official result and that the data source was reliable.</li>
-                            </ul>
+                            <h5>Verification Conclusion</h5>
+                            <p>
+Original Bet Outcome (OBO): Lost
+Correct Bet Outcome (CBO): Lost
+Final Verification Result (FVR): Correct (Lost)
+
+<strong>Rationale:</strong> The match had 5 yellow card incidents and 1 red card incident. The player Neymar received a yellow card and then a second yellow, which resulted in a red. According to the rules, this counts as 2 cards for this player (1 yellow + 1 red). The other 4 yellow cards went to different players. Therefore, the total number of cards in the match is 4 + 2 = 6 cards. The bet was on "Over 6.5 Cards" (Over 6.5 cards). As 6 is less than 6.5, the bet was correctly settled as a "Loss".
+Suggested Next Step: None
+
+<strong>- Agent Information:</strong>
+
+<strong>Remarks on the Result:</strong>
+
+The original settlement of "Lost" is consistent with the official verified result (OBO: "Lost").
+The total card count was 6, which does not exceed the line of 6.5.
+
+<strong>Data reliability:</strong>
+
+The actual source (Os Sport Perform) returned reliable and complete data.
+No detailed individual statistics for players were required in this check.
+
+<strong>Recommended Action (Based on Suggested Next Step):</strong>
+
+None.
+                            </p>
                         </div>
                         <p class="mt-4 text-slate-600"><strong>What it's for:</strong> Presents the final verification result (FVR), comparing the correct result (RCA) with the original (ROI), with a detailed justification.</p>
                     </div>
@@ -246,20 +315,29 @@
                     </div>
                     <div>
                         <div class="translation-box">
-                            <h5>Customer Response Template</h5>
-                            <p>Hello,</p>
-                            <p>We've analyzed your bet on Santos vs Botafogo FR (01/06/2025), regarding the "Total Cards Over/Under 6.5" market with the selection "Over 6.5 Cards".</p/n>
-                            <p>For your bet on (Over 6.5 Cards) to win, the condition (the match had 7 or more cards) had to happen.</p>
-                            <p>After consulting the detailed official results (via OptaScore), we checked the following key data(s) relevant to your bet:</p>
-                            <ul class="list-none pl-0">
-                                <li>Total Yellow Cards (incidents): 5</li>
-                                <li>Total Red Cards (incidents): 1</li>
-                            </ul>
-                            <p><strong>Important Detail:</strong> The player Neymar received a yellow card and then a second yellow card which resulted in his expulsion (red card). According to the card counting rules, a player who receives two yellows and then a red, contributes 2 cards to the match total (one yellow and one red).</p>
-                            <p><strong>Total Cards calculation:</strong> 4 yellow cards (for different players) + 2 cards (1 yellow + 1 red for Neymar) = 6 cards.</p>
-                            <p>See Details on OptaScore</p>
-                            <p><strong>Conclusion:</strong><br>Based on the official data obtained, your "Over 6.5 Cards" selection was not a winner. As the total number of cards in the match was 6, and your bet was for there to be more than 6.5 cards (i.e. 7 or more), your bet was lost.<br>Therefore, the original settlement of your bet as a loss is correct.</p>
-                            <p>Thank you for your understanding. Is there anything else I can help you with?</p>
+                            <h5>Customer Response Template:</h5>
+                            <p>
+Hello,
+
+We've analyzed your bet on Santos vs Botafogo FR (01/06/2025), regarding the "Total Cards Over/Under 6.5" market with the selection "Over 6.5 Cards".
+
+For your bet on (Over 6.5 Cards) to win, the condition (the match had 7 or more cards) had to happen.
+After consulting the detailed official results (via OptaScore), we checked the following key data(s) relevant to your bet:
+
+Total Yellow Cards (incidents): 5
+Total Red Cards (incidents): 1
+
+<strong>Important Detail:</strong> The player Neymar received a yellow card and then a second yellow card which resulted in his expulsion (red card). According to the card counting rules, a player who receives two yellows and then a red, contributes 2 cards to the match total (one yellow and one red).
+<strong>Total Cards calculation:</strong> 4 yellow cards (for different players) + 2 cards (1 yellow + 1 red for Neymar) = 6 cards.
+
+See Details on OptaScore (Link to Opta Score Site)
+
+<strong>Conclusion:</strong>
+
+Based on the official data obtained, your "Over 6.5 Cards" selection was not a winner. As the total number of cards in the match was 6, and your bet was for there to be more than 6.5 cards (i.e. 7 or more), your bet was lost.
+Therefore, the original settlement of your bet as a loss is correct.
+Thank you for your understanding. Is there anything else I can allude to?
+                            </p>
                         </div>
                         <p class="mt-4 text-slate-600"><strong>What it's for:</strong> Generates a clear and professional communication to be sent to the customer, explaining the result of their dispute.</p>
                     </div>
@@ -391,7 +469,7 @@
                  <h3 class="text-2xl md:text-3xl font-bold mb-4">🔗 Data Ecosystem: The Same Source You Already Use</h3>
                  <div class="flex flex-col sm:flex-row items-center gap-6 mb-6">
                      <img src="https://raw.githubusercontent.com/riohdigital/rio-digital-hub-connect/7b46a0d968dcb8819d2156eebe09ec8c93c0cbd8/public/Logo%20and%20final%20proofs/Logo%20SofaSport.png" alt="SofaSport Logo" class="w-48 h-auto flex-shrink-0">
-                     <p class="text-slate-600">Our confidence in the data comes from using cutting-edge APIs, such as **SofaSport**. The most important point is that the very platforms we use for manual verification, like **SofaScore** and **StatsPerform (Opta)**, are clients and partners of the same data source.</p>
+                     <p class="text-slate-600">Our confidence in the data comes from using cutting-edge APIs, such as SofaSport. The most important point is that the very platforms we use for manual verification, like SofaScore and StatsPerform (Opta), are clients and partners of the same data source.</p>
                  </div>
                  <div class="output-example-container mb-6">
                       <img src="https://raw.githubusercontent.com/riohdigital/rio-digital-hub-connect/7b46a0d968dcb8819d2156eebe09ec8c93c0cbd8/public/Logo%20and%20final%20proofs/Detalhes%20da%20API.png" alt="API details showing the partnership with Opta and other sources.">
